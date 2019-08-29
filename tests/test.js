@@ -760,4 +760,25 @@ describe('file formats', () => {
     });
   });
 
+  it('should detect ics started with BEGIN:VCALENDAR', (done) => {
+    detect.fromFile('./files/fixture-simple-ics.ics', (err, result) => {
+      assert.equal(err, null);
+      assert.deepEqual(result, {
+        ext: 'ics',
+        mime: 'text/calendar'
+      });
+      done();
+    });
+  });
+
+  it('should detect vcf started with BEGIN:VCARD tag', (done) => {
+    detect.fromFile('./files/fixture-simple-vcf.vcf', (err, result) => {
+      assert.equal(err, null);
+      assert.deepEqual(result, {
+        ext: 'vcf',
+        mime: 'text/vcard'
+      });
+      done();
+    });
+  });
 });

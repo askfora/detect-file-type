@@ -972,7 +972,16 @@
     "ext": "ics",
     "mime": "text/calendar",
     "rules": [
-      { "type": "equal", "start": 0, "end": 6, "bytes": "424547494e3a" }
+      { "type": "equal", "start": 0, "end": 15, "bytes": "424547494e3a5643414c454e444152" }
+    ]
+  },
+
+  {
+    "type": "vcf",
+    "ext": "vcf",
+    "mime": "text/vcard",
+    "rules": [
+      { "type": "equal", "start": 0, "end": 11, "bytes": "424547494e3a5643415244" }
     ]
   },
 
