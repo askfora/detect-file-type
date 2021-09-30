@@ -17,7 +17,7 @@
     "email": "dima@paloskin.me",
     "url": "http://paloskin.me"
   },
-  "repository": "dimapaloskin/detect-file-type",
+  "repository": "askfora/detect-file-type",
   "engines": {
     "node": ">=6.0.0"
   },
