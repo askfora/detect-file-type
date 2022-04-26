@@ -875,20 +875,31 @@
   },
 
   {
-    "type": "xml",
-    "ext": "xml",
-    "mime": "application/xml",
-    "rules": [
-      { "type": "equal", "start": 0, "end": 6, "bytes": "3c3f786d6c20", "desc": "<?xml " }
-    ]
-  },
-
-  {
     "type": "svg",
     "ext": "svg",
     "mime": "image/svg+xml",
     "rules": [
-      { "type": "contains", "bytes": "3c737667" }
+      { "type": "or", "recode_text": true, "rules":
+      [
+        { "type": "equal", "start": 0, "end": 4, "bytes": "3c737667", "desc": "<svg" },
+        { "type": "and", "rules":
+        [
+          { "type": "equal", "start": 0, "end": 6,  "bytes": "3c3f786d6c20", "desc": "<?xml " },
+          { "type": "contains", "bytes": "3c737667", "desc": "<svg" }
+        ]
+        }
+      ]
+      }
+    ]
+  },
+
+  {
+    "type": "xml",
+    "ext": "xml",
+    "mime": "application/xml",
+    "recode_text": true,
+    "rules": [
+      { "type": "equal", "start": 0, "end": 6, "bytes": "3c3f786d6c20", "desc": "<?xml " }
     ]
   },
 
@@ -971,6 +982,7 @@
     "type": "ics",
     "ext": "ics",
     "mime": "text/calendar",
+    "recode_text": true,
     "rules": [
       { "type": "equal", "start": 0, "end": 15, "bytes": "424547494e3a5643414c454e444152" }
     ]
@@ -1013,7 +1025,7 @@
     "ext": "html",
     "mime": "text/html",
     "rules": [
-      { "type": "or", "rules":
+      { "type": "or", "recode_text": true, "rules":
       [
         { "type": "contains", "bytes": "3c68746d6c" },
         { "type": "contains", "bytes": "3c00680074006d006c00" }
