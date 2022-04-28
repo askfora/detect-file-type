@@ -1,9 +1,20 @@
 import {assert} from 'chai';
 import detect from '../src/index';
-import isHtml from 'is-html';
+
+import htmlTags from 'html-tags';
+
+const basic = /\s?<!doctype html>|(<html\b[^>]*>|<body\b[^>]*>|<x-[^>]+>)+/i;
+const full = new RegExp(htmlTags.map(tag => `<${tag}\\b[^>]*>`).join('|'), 'i');
+
+function isHtml(string) {
+    // We limit it to a reasonable length to improve performance.
+    string = string.trim().slice(0, 1000);
+
+    return basic.test(string) || full.test(string);
+}
 
 describe('custom function', () => {
-  it(`should detect html without fixture`, (done) => {
+  it(`should detect html without fixture`, async () => {
     detect.addCustomFunction((buffer) => {
       const str = buffer.toString();
       if (isHtml(str)) {
@@ -22,7 +33,6 @@ describe('custom function', () => {
         ext: 'html',
         mime: 'text/html'
       });
-      done();
     });
   });
 });
